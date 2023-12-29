@@ -1,15 +1,16 @@
-import { StyleSheet, Text, View,Image, StatusBar, TouchableOpacity } from 'react-native'
+import { StyleSheet, View,Image, StatusBar,  } from 'react-native'
 import React,{useEffect} from 'react'
 
 import { myColors } from '../../Utils/Theme'
 
 const Splash = ({navigation}) => {
 useEffect(() => {
-  setTimeout(() => {
-    navigation.replace("Home")
-  }, 3000);
 
-})
+  setTimeout(() => {
+    navigation.push("Home")
+  }, 1000);
+
+} )
 
 
   return (
