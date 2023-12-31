@@ -80,7 +80,7 @@ const Home = ({navigation}) => {
 
         <View style={styles.subContainer}>
      
-         <MovieCards title='Now Playnig' data={nowPlayingData}/>
+         <MovieCards title='Now Playnig' data={nowPlayingData} navigation={navigation}/>
 
          <MovieCards title='Popular Movies'data={popularMoviesData} />
          

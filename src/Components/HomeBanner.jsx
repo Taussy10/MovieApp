@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 
+
 const HomeBanner = ({ navigation }) => {
   const [upComingApiData, setUpComingApiData] = useState([]);
 
@@ -50,7 +51,7 @@ const HomeBanner = ({ navigation }) => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.playButton}
-                onPress={() => navigation && navigation.navigate('PracResponsive') && console.log("Hello") }
+              
               >
                 <Text style={styles.playText}>
                   <Icon name="controller-play" size={30} /> Play
