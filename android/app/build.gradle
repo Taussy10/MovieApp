@@ -125,7 +125,11 @@ project.ext.vectoricons = [
         'AntDesign.ttf',
         'Entypo.ttf',
         'Ionicons.ttf',
-        'Feather.ttf'
+        'Feather.ttf',
+        'FontAwesome.ttf',
+        'FontAwesome5.ttf',
+        'Octicons.ttf',
+
     ] // Specify font files
 ]
 

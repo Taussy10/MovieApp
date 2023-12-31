@@ -1,26 +1,59 @@
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useState } from 'react'
-import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions'
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions' 
+
+// import Icons from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/Entypo';
 
 
-//source={{uri: `https://image.tmdb.org/t/p/w500/${item.backdrop_path}` }} 
+
+
+// for putting videoPlayer
+import Video from 'react-native-video'
+
+// this is for making video in landscape mode
+import Orientation from 'react-native-orientation-locker'
+
+
+
 
 // How to get data from MovieCards 
 const VideoPlayer = ({route}) => {
-  // We have destructure the item props and we are taking from item Original_title
-// const { item} = route.params;
+
+const {item} = route.params;
   // console.log(item)
 
   const [isVideoVisible, setIsVideoVisible] = useState(false)
   return (
     <View style={styles.mainContainer}>
       {/* Image component */}
+
       {/* description comp */}
-      {/* By default ScrollVIew is Vertical */}
+      {/* By default ScrollvIew is Vertical */}
       <ScrollView style={styles.scrollContainer} > 
  {
   isVideoVisible ?(
-    null
+    <Video  style={styles.Video}
+     setControls
+     controls
+     repeat={false}
+    //  fullscreen={true}
+     resizeMode='cover'
+   
+    
+
+
+onFullscreenPlayerWillPresent={() => {
+  Orientation.lockToLandscape();
+}}
+onFullscreenPlayerWillDismiss={() => {
+  Orientation.lockToPortrait();
+}}
+
+source={{uri: `https://image.tmdb.org/t/p/w500/${item.backdrop_path}` }} 
+    />
+
+    
   ): (
         <Image 
         style={styles.firstContainer}
@@ -44,7 +77,7 @@ const VideoPlayer = ({route}) => {
 {/* Second Box Name */}
 
  <Text style={styles.text}>
-         item.original_title  </Text> 
+ {item.original_title} </Text> 
 
 
 
@@ -52,34 +85,46 @@ const VideoPlayer = ({route}) => {
   {/* Make 3rd box */}
   <View style={{ flexDirection:'row' , gap:5, marginTop:4,}}>
     <Text style={{color:'white'}}>
-    item.release_date |
+   { item.original_title}
     </Text>
-    <Text style={{color:'white'}}>
-    item.popularity 
-    </Text>
+
+    <View style={{height:20, width:3 , backgroundColor:'white'}}>
+    </View>
+       
+    <Text style={{color:'white', fontSize:18 }}>{item.release_date}</Text>
    
   </View>
 
   {/* 4the box */}
   {/* we have to make an array to use this  */}
   <View style={{marginTop:20,}}> 
-  <TouchableOpacity style={[{backgroundColor:'white' } ,styles.button]}>
+
+  <TouchableOpacity 
+   onPress={ ()=>{ setIsVideoVisible(true) }}
+  style={[{backgroundColor:'white', flexDirection:'row' } ,styles.button]}>
+
+ <Icon name="controller-play" size={30} />
+
     <Text style={styles.btnText}>Play</Text>
   </TouchableOpacity>
 
 
-  <TouchableOpacity style={[{backgroundColor:'grey' } ,styles.button]}>
-    <Text style={styles.btnText}>Download</Text>
+  <TouchableOpacity style={[{backgroundColor:'grey',  flexDirection:'row', gap:10 } ,styles.button]}>
+  <Icon name="download" size={30}  color="#FFFFFF"/>
+    <Text style={[{alignItems:'center', color:'white'},styles.btnText ]}>Download</Text>
   </TouchableOpacity>
   </View>
 
-         </View>
 
-<View style={styles.desc}>
-<Text>
-  MOvie
+  <View style={styles.desc}>
+<Text style={{color:'white', lineHeight:20, textAlign:'justify', marginVertical:10, fontSize: 16 }}>  
+{item.overview}
+
 </Text>
 </View>
+
+         </View>
+
 
         </ScrollView>
        
@@ -90,6 +135,10 @@ const VideoPlayer = ({route}) => {
 export default VideoPlayer
 
 const styles = StyleSheet.create({
+  Video:{
+    height: responsiveHeight(35),
+    // marginTop:0,
+  },
   mainContainer:{
     flex:1,
     backgroundColor:'black'
@@ -121,6 +170,9 @@ const styles = StyleSheet.create({
     btnText:{
     fontSize: responsiveFontSize(3),
     fontWeight: '600',   
+    },
+    desc:{
+      color:'white'
     }
 }
 )
